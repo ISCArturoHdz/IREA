@@ -713,8 +713,32 @@
             }
 
             .about-visual {
-                height: 260px;
-                margin-bottom: 3rem;
+                display: none;
+            }
+
+            .about-stat-mobile {
+                display: flex !important;
+                align-items: center;
+                gap: 1rem;
+                background: var(--blue-accent);
+                border-radius: 8px;
+                padding: 1.2rem 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .about-stat-mobile-num {
+                font-family: 'Rajdhani', sans-serif;
+                font-size: 2rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1;
+            }
+
+            .about-stat-mobile-label {
+                font-size: 0.72rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.75);
             }
 
             .hero {
@@ -732,6 +756,12 @@
             footer {
                 flex-direction: column;
                 text-align: center;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .about-stat-mobile {
+                display: none;
             }
         }
     </style>
@@ -868,6 +898,12 @@
                 <li>Comprometidos con tiempos de entrega confiables</li>
                 <li>Relaciones de largo plazo, no solo transacciones</li>
             </ul>
+            <div class="about-stat-mobile">
+                <div>
+                    <div class="about-stat-mobile-num">+500</div>
+                    <div class="about-stat-mobile-label">Equipos reparados</div>
+                </div>
+            </div>
         </div>
         <div class="about-visual">
             <div class="about-box about-box-main">
