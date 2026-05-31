@@ -1,762 +1,1293 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IREA Design and Control</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IREA Design and Control</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  :root {
-    --blue-dark: #0d1b2e;
-    --blue-mid: #163354;
-    --blue-accent: #1a5fa8;
-    --blue-light: #2480d6;
-    --gold: #e8a020;
-    --gold-light: #f0c060;
-    --white: #f5f7fa;
-    --gray: #8a9ab0;
-    --gray-light: #dde4ee;
-    --text-on-dark: #c8d8ee;
-  }
+        :root {
+            --blue-dark: #0d1b2e;
+            --blue-mid: #163354;
+            --blue-accent: #1a5fa8;
+            --blue-light: #2480d6;
+            --gold: #e8a020;
+            --gold-light: #f0c060;
+            --white: #f5f7fa;
+            --gray: #8a9ab0;
+            --gray-light: #dde4ee;
+            --text-on-dark: #c8d8ee;
+        }
 
-  html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    background: var(--blue-dark);
-    color: var(--white);
-    overflow-x: hidden;
-  }
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--blue-dark);
+            color: var(--white);
+            overflow-x: hidden;
+        }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(13,27,46,0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(36,128,214,0.18);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2.5rem; height: 64px;
-  }
-  .nav-logo {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700; font-size: 1.45rem; letter-spacing: 0.06em;
-    color: var(--white); display: flex; align-items: center; gap: 10px;
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--gold); }
-  .nav-logo-badge {
-    font-size: 0.58rem; font-weight: 600; letter-spacing: 0.12em;
-    background: var(--blue-accent); color: #fff;
-    padding: 2px 6px; border-radius: 3px;
-  }
-  .nav-logo-icon {
-    width: 38px; height: 38px; object-fit: contain;
-    filter: invert(1) brightness(2);
-  }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.88rem; font-weight: 400; letter-spacing: 0.08em;
-    color: var(--text-on-dark); text-decoration: none;
-    text-transform: uppercase; transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: var(--blue-accent); color: #fff !important;
-    padding: 0.4rem 1.1rem; border-radius: 4px;
-    transition: background 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--blue-light) !important; color: #fff !important; }
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(13, 27, 46, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(36, 128, 214, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 64px;
+        }
 
-  /* Hamburger */
-  .nav-hamburger {
-    display: none; flex-direction: column; justify-content: center;
-    gap: 5px; cursor: pointer; padding: 6px; background: none; border: none;
-  }
-  .nav-hamburger span {
-    display: block; width: 24px; height: 2px;
-    background: var(--white); border-radius: 2px; transition: all 0.3s;
-  }
-  .nav-mobile {
-    display: none; flex-direction: column; gap: 0;
-    background: rgba(13,27,46,0.99);
-    position: fixed; top: 64px; left: 0; right: 0;
-    border-bottom: 1px solid rgba(36,128,214,0.18);
-    z-index: 99;
-  }
-  .nav-mobile a {
-    padding: 1rem 2rem; font-size: 0.95rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--text-on-dark); text-decoration: none;
-    border-bottom: 1px solid rgba(36,128,214,0.1); transition: color 0.2s;
-  }
-  .nav-mobile a:hover { color: var(--gold); }
-  .nav-mobile.open { display: flex; }
+        .nav-logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.45rem;
+            letter-spacing: 0.06em;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh; position: relative;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 8rem 3rem 5rem;
-    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, #0a2545 100%);
-    overflow: hidden;
-  }
-  .hero-grid-bg {
-    position: absolute; inset: 0; pointer-events: none; opacity: 0.07;
-    background-image:
-      linear-gradient(var(--blue-light) 1px, transparent 1px),
-      linear-gradient(90deg, var(--blue-light) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-  .hero-accent-line {
-    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-  .hero-content { position: relative; max-width: 720px; }
-  .hero-eyebrow {
-    font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; letter-spacing: 0.22em;
-    color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .hero-eyebrow::before {
-    content: ''; display: inline-block; width: 32px; height: 1px; background: var(--gold);
-  }
-  .hero-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: clamp(2.8rem, 6vw, 5.2rem);
-    font-weight: 700; line-height: 1.05;
-    letter-spacing: 0.01em;
-    color: #fff;
-    margin-bottom: 1.6rem;
-  }
-  .hero-title em { color: var(--gold); font-style: normal; }
-  .hero-subtitle {
-    font-size: 1.05rem; font-weight: 300; line-height: 1.8;
-    color: var(--text-on-dark); max-width: 580px; margin-bottom: 2.6rem;
-  }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--gold); color: var(--blue-dark);
-    font-family: 'Rajdhani', sans-serif; font-weight: 700;
-    font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.85rem 2.2rem; border-radius: 4px; text-decoration: none;
-    border: none; cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    display: inline-block;
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent; color: var(--white);
-    font-family: 'Rajdhani', sans-serif; font-weight: 600;
-    font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.85rem 2.2rem; border-radius: 4px; text-decoration: none;
-    border: 1px solid rgba(245,247,250,0.3); cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    display: inline-block;
-  }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        .nav-logo span {
+            color: var(--gold);
+        }
 
-  .hero-stats {
-    position: absolute; bottom: 4rem; right: 3rem;
-    display: flex; gap: 2.5rem;
-  }
-  .stat-item { text-align: center; }
-  .stat-num {
-    font-family: 'Rajdhani', sans-serif; font-size: 2.4rem; font-weight: 700;
-    color: var(--gold); line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--gray); margin-top: 4px;
-  }
+        .nav-logo-badge {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            background: var(--blue-accent);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
 
-  /* SECTION BASE */
-  section { padding: 6rem 3rem; }
-  .section-label {
-    font-family: 'Rajdhani', sans-serif; font-size: 0.72rem;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.8rem;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .section-label::before {
-    content: ''; width: 24px; height: 1px; background: var(--gold); display: inline-block;
-  }
-  .section-title {
-    font-family: 'Rajdhani', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 700; color: #fff; margin-bottom: 1rem; line-height: 1.1;
-  }
-  .section-desc {
-    font-size: 1rem; color: var(--text-on-dark); max-width: 600px;
-    line-height: 1.8; font-weight: 300;
-  }
-  .section-header { margin-bottom: 3.5rem; }
+        .nav-logo-icon {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            filter: invert(1) brightness(2);
+        }
 
-  /* SERVICES */
-  #servicios { background: var(--blue-mid); }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5px;
-    border: 1.5px solid rgba(36,128,214,0.18);
-    border-radius: 8px; overflow: hidden;
-  }
-  .service-card {
-    background: rgba(13,27,46,0.8);
-    padding: 2rem 1.8rem;
-    position: relative; overflow: hidden;
-    transition: background 0.25s;
-    cursor: default;
-  }
-  .service-card:hover { background: rgba(22,51,84,0.98); }
-  .service-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--blue-accent), transparent);
-    opacity: 0; transition: opacity 0.25s;
-  }
-  .service-card:hover::before { opacity: 1; }
-  .service-icon {
-    font-size: 2rem; margin-bottom: 1rem;
-    width: 52px; height: 52px;
-    background: rgba(26,95,168,0.15);
-    border: 1px solid rgba(36,128,214,0.25);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .service-name {
-    font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 700;
-    color: #fff; margin-bottom: 0.6rem; letter-spacing: 0.02em;
-  }
-  .service-desc {
-    font-size: 0.88rem; color: var(--text-on-dark); line-height: 1.7; font-weight: 300;
-  }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-  /* ABOUT */
-  #nosotros {
-    background: var(--blue-dark);
-    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
-  }
-  .about-visual {
-    position: relative; height: 380px;
-  }
-  .about-box {
-    position: absolute;
-    border: 1px solid rgba(36,128,214,0.25);
-    border-radius: 6px; background: var(--blue-mid);
-  }
-  .about-box-main {
-    inset: 0; display: flex; flex-direction: column;
-    padding: 2rem; justify-content: flex-end;
-    background: linear-gradient(160deg, var(--blue-mid), var(--blue-dark));
-    overflow: hidden;
-  }
-  .about-box-main::after {
-    content: 'IREA';
-    position: absolute; top: 1.2rem; left: 1.5rem;
-    font-family: 'Rajdhani', sans-serif; font-size: 5rem; font-weight: 700;
-    color: rgba(36,128,214,0.08); letter-spacing: 0.05em; line-height: 1;
-  }
-  .about-box-tag {
-    display: inline-block; font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    background: rgba(232,160,32,0.12);
-    color: var(--gold); padding: 4px 10px; border-radius: 3px;
-    margin-bottom: 0.8rem; width: fit-content;
-  }
-  .about-box-text {
-    font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 600;
-    color: #fff; line-height: 1.3;
-  }
-  .about-detail-box {
-    position: absolute; bottom: -1.5rem; right: -1.5rem;
-    width: 180px; padding: 1.2rem;
-    background: var(--blue-accent);
-    border: none; border-radius: 8px;
-    display: flex; flex-direction: column; gap: 4px;
-  }
-  .about-detail-num {
-    font-family: 'Rajdhani', sans-serif; font-size: 2rem; font-weight: 700;
-    color: #fff; line-height: 1;
-  }
-  .about-detail-label {
-    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
-  }
+        .nav-links a {
+            font-size: 0.88rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            color: var(--text-on-dark);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
 
-  .about-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
-  .about-list li {
-    display: flex; align-items: flex-start; gap: 0.8rem;
-    font-size: 0.95rem; color: var(--text-on-dark); line-height: 1.6; font-weight: 300;
-  }
-  .about-list li::before {
-    content: '▸'; color: var(--gold); font-size: 0.8rem; margin-top: 3px; flex-shrink: 0;
-  }
+        .nav-links a:hover {
+            color: var(--gold);
+        }
 
-  /* CONTACT */
-  #contacto {
-    background: var(--blue-mid);
-    text-align: center;
-  }
-  .contact-cards {
-    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;
-  }
-  .contact-card {
-    background: var(--blue-dark);
-    border: 1px solid rgba(36,128,214,0.2);
-    border-radius: 8px; padding: 2rem 2.5rem;
-    display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
-    min-width: 240px; transition: border-color 0.2s;
-  }
-  .contact-card:hover { border-color: var(--gold); }
-  .contact-card-icon {
-    width: 50px; height: 50px; border-radius: 50%;
-    background: rgba(26,95,168,0.15);
-    border: 1px solid rgba(36,128,214,0.3);
-    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-  }
-  .contact-card-label {
-    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--gray); font-weight: 400;
-  }
-  .contact-card-value {
-    font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 600;
-    color: var(--white);
-  }
+        .nav-cta {
+            background: var(--blue-accent);
+            color: #fff !important;
+            padding: 0.4rem 1.1rem;
+            border-radius: 4px;
+            transition: background 0.2s !important;
+        }
 
-  /* FOOTER */
-  footer {
-    background: #060f1a;
-    border-top: 1px solid rgba(36,128,214,0.1);
-    padding: 2rem 3rem;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-  }
-  .footer-logo {
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.1rem;
-    letter-spacing: 0.06em; color: var(--white);
-  }
-  .footer-logo span { color: var(--gold); }
-  .footer-copy { font-size: 0.78rem; color: var(--gray); }
+        .nav-cta:hover {
+            background: var(--blue-light) !important;
+            color: #fff !important;
+        }
 
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .hero-eyebrow { animation: fadeUp 0.7s ease both; }
-  .hero-title { animation: fadeUp 0.7s 0.12s ease both; }
-  .hero-subtitle { animation: fadeUp 0.7s 0.22s ease both; }
-  .hero-actions { animation: fadeUp 0.7s 0.32s ease both; }
+        /* Hamburger */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            background: none;
+            border: none;
+        }
 
-  @media (max-width: 768px) {
-    nav { padding: 0 1.2rem; }
-    .nav-links { display: none; }
-    .nav-hamburger { display: flex; }
-    section { padding: 4rem 1.5rem; }
-    #nosotros { grid-template-columns: 1fr; }
-    .about-visual { display: none; }
-    .about-stat-mobile {
-      display: flex !important; align-items: center; gap: 1rem;
-      background: var(--blue-accent); border-radius: 8px;
-      padding: 1.2rem 1.5rem; margin-top: 2rem;
-    }
-    .about-stat-mobile-num {
-      font-family: 'Rajdhani', sans-serif; font-size: 2rem; font-weight: 700;
-      color: #fff; line-height: 1;
-    }
-    .about-stat-mobile-label {
-      font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
-    }
-    .hero { padding: 7rem 1.5rem 4rem; }
-    .hero-stats { position: relative; bottom: auto; right: auto; margin-top: 2.5rem; justify-content: flex-start; }
-    footer { flex-direction: column; text-align: center; }
-  }
-  @media (min-width: 769px) {
-    .about-stat-mobile { display: none; }
-  }
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
 
-  /* CARRUSEL */
-  #galeria { background: var(--blue-dark); }
+        .nav-mobile {
+            display: none;
+            flex-direction: column;
+            gap: 0;
+            background: rgba(13, 27, 46, 0.99);
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            border-bottom: 1px solid rgba(36, 128, 214, 0.18);
+            z-index: 99;
+        }
 
-  .carousel-wrapper {
-    position: relative; overflow: hidden;
-    border-radius: 10px;
-    border: 1px solid rgba(36,128,214,0.2);
-    aspect-ratio: 16/9;
-    max-height: 560px;
-  }
-  .carousel-track {
-    display: flex; height: 100%;
-    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
-  }
-  .carousel-slide {
-    min-width: 100%; height: 100%; position: relative; flex-shrink: 0;
-  }
-  .carousel-slide img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-  }
-  .carousel-slide-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(6,15,26,0.75) 0%, transparent 55%);
-    display: flex; align-items: flex-end; padding: 2rem;
-  }
-  .carousel-slide-label {
-    font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700;
-    color: #fff; letter-spacing: 0.06em;
-  }
+        .nav-mobile a {
+            padding: 1rem 2rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-on-dark);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(36, 128, 214, 0.1);
+            transition: color 0.2s;
+        }
 
-  /* Botones prev/next */
-  .carousel-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(13,27,46,0.7); border: 1px solid rgba(36,128,214,0.3);
-    color: #fff; font-size: 1.6rem; cursor: pointer;
-    width: 48px; height: 48px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s; z-index: 10;
-  }
-  .carousel-btn:hover { background: var(--blue-accent); }
-  .carousel-btn-prev { left: 1rem; }
-  .carousel-btn-next { right: 1rem; }
+        .nav-mobile a:hover {
+            color: var(--gold);
+        }
 
-  /* Dots */
-  .carousel-dots {
-    display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.2rem;
-  }
-  .carousel-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: rgba(138,154,176,0.4); cursor: pointer;
-    transition: background 0.3s, transform 0.3s; border: none;
-  }
-  .carousel-dot.active {
-    background: var(--gold); transform: scale(1.3);
-  }
+        .nav-mobile.open {
+            display: flex;
+        }
 
-  /* Barra de progreso */
-  .carousel-progress {
-    height: 2px; background: rgba(36,128,214,0.15);
-    margin-top: 0.5rem; border-radius: 2px; overflow: hidden;
-  }
-  .carousel-progress-bar {
-    height: 100%; background: var(--gold);
-    width: 0%; transition: width linear;
-  }
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 3rem 5rem;
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 60%, #0a2545 100%);
+            overflow: hidden;
+        }
 
-  /* Thumbnails */
-  .carousel-thumbs {
-    display: flex; gap: 0.6rem; margin-top: 1rem;
-    overflow-x: auto; padding-bottom: 4px;
-    scrollbar-width: thin; scrollbar-color: rgba(36,128,214,0.3) transparent;
-  }
-  .carousel-thumb {
-    min-width: 80px; height: 56px; border-radius: 4px; overflow: hidden;
-    cursor: pointer; border: 2px solid transparent;
-    transition: border-color 0.2s, opacity 0.2s; opacity: 0.55; flex-shrink: 0;
-  }
-  .carousel-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel-thumb.active { border-color: var(--gold); opacity: 1; }
-  .carousel-thumb:hover { opacity: 0.85; }
+        .hero-grid-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.07;
+            background-image:
+                linear-gradient(var(--blue-light) 1px, transparent 1px),
+                linear-gradient(90deg, var(--blue-light) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
 
-  @media (max-width: 768px) {
-    .carousel-slide-label { font-size: 1rem; }
-    .carousel-btn { width: 36px; height: 36px; font-size: 1.2rem; }
-    .carousel-thumbs { display: none; }
-  }
-</style>
+        .hero-accent-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 720px;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.22em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 32px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .hero-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(2.8rem, 6vw, 5.2rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: 0.01em;
+            color: #fff;
+            margin-bottom: 1.6rem;
+        }
+
+        .hero-title em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--text-on-dark);
+            max-width: 580px;
+            margin-bottom: 2.6rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--blue-dark);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.85rem 2.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.85rem 2.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            border: 1px solid rgba(245, 247, 250, 0.3);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero-stats {
+            position: absolute;
+            bottom: 4rem;
+            right: 3rem;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* SECTION BASE */
+        section {
+            padding: 6rem 3rem;
+        }
+
+        .section-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-on-dark);
+            max-width: 600px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .section-header {
+            margin-bottom: 3.5rem;
+        }
+
+        /* SERVICES */
+        #servicios {
+            background: var(--blue-mid);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5px;
+            border: 1.5px solid rgba(36, 128, 214, 0.18);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .service-card {
+            background: rgba(13, 27, 46, 0.8);
+            padding: 2rem 1.8rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.25s;
+            cursor: default;
+        }
+
+        .service-card:hover {
+            background: rgba(22, 51, 84, 0.98);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue-accent), transparent);
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            width: 52px;
+            height: 52px;
+            background: rgba(26, 95, 168, 0.15);
+            border: 1px solid rgba(36, 128, 214, 0.25);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.02em;
+        }
+
+        .service-desc {
+            font-size: 0.88rem;
+            color: var(--text-on-dark);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ABOUT */
+        #nosotros {
+            background: var(--blue-dark);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 380px;
+        }
+
+        .about-box {
+            position: absolute;
+            border: 1px solid rgba(36, 128, 214, 0.25);
+            border-radius: 6px;
+            background: var(--blue-mid);
+        }
+
+        .about-box-main {
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            justify-content: flex-end;
+            background: linear-gradient(160deg, var(--blue-mid), var(--blue-dark));
+            overflow: hidden;
+        }
+
+        .about-box-main::after {
+            content: 'IREA';
+            position: absolute;
+            top: 1.2rem;
+            left: 1.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(36, 128, 214, 0.08);
+            letter-spacing: 0.05em;
+            line-height: 1;
+        }
+
+        .about-box-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            background: rgba(232, 160, 32, 0.12);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 3px;
+            margin-bottom: 0.8rem;
+            width: fit-content;
+        }
+
+        .about-box-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .about-detail-box {
+            position: absolute;
+            bottom: -1.5rem;
+            right: -1.5rem;
+            width: 180px;
+            padding: 1.2rem;
+            background: var(--blue-accent);
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .about-detail-num {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .about-detail-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .about-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .about-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            color: var(--text-on-dark);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .about-list li::before {
+            content: '▸';
+            color: var(--gold);
+            font-size: 0.8rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* CONTACT */
+        #contacto {
+            background: var(--blue-mid);
+            text-align: center;
+        }
+
+        .contact-cards {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: var(--blue-dark);
+            border: 1px solid rgba(36, 128, 214, 0.2);
+            border-radius: 8px;
+            padding: 2rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: 240px;
+            transition: border-color 0.2s;
+        }
+
+        .contact-card:hover {
+            border-color: var(--gold);
+        }
+
+        .contact-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(26, 95, 168, 0.15);
+            border: 1px solid rgba(36, 128, 214, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .contact-card-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .contact-card-value {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #060f1a;
+            border-top: 1px solid rgba(36, 128, 214, 0.1);
+            padding: 2rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            color: var(--white);
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            font-size: 0.78rem;
+            color: var(--gray);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .hero-title {
+            animation: fadeUp 0.7s 0.12s ease both;
+        }
+
+        .hero-subtitle {
+            animation: fadeUp 0.7s 0.22s ease both;
+        }
+
+        .hero-actions {
+            animation: fadeUp 0.7s 0.32s ease both;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-hamburger {
+                display: flex;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            #nosotros {
+                grid-template-columns: 1fr;
+            }
+
+            .about-visual {
+                display: none;
+            }
+
+            .about-stat-mobile {
+                display: flex !important;
+                align-items: center;
+                gap: 1rem;
+                background: var(--blue-accent);
+                border-radius: 8px;
+                padding: 1.2rem 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .about-stat-mobile-num {
+                font-family: 'Rajdhani', sans-serif;
+                font-size: 2rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1;
+            }
+
+            .about-stat-mobile-label {
+                font-size: 0.72rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.75);
+            }
+
+            .hero {
+                padding: 7rem 1.5rem 4rem;
+            }
+
+            .hero-stats {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 2.5rem;
+                justify-content: flex-start;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .about-stat-mobile {
+                display: none;
+            }
+        }
+
+        /* CARRUSEL */
+        #galeria {
+            background: var(--blue-dark);
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid rgba(36, 128, 214, 0.2);
+            aspect-ratio: 16/9;
+            max-height: 560px;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6, 15, 26, 0.75) 0%, transparent 55%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+        }
+
+        .carousel-slide-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.06em;
+        }
+
+        /* Botones prev/next */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(13, 27, 46, 0.7);
+            border: 1px solid rgba(36, 128, 214, 0.3);
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: var(--blue-accent);
+        }
+
+        .carousel-btn-prev {
+            left: 1rem;
+        }
+
+        .carousel-btn-next {
+            right: 1rem;
+        }
+
+        /* Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.2rem;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(138, 154, 176, 0.4);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+        }
+
+        .carousel-dot.active {
+            background: var(--gold);
+            transform: scale(1.3);
+        }
+
+        /* Barra de progreso */
+        .carousel-progress {
+            height: 2px;
+            background: rgba(36, 128, 214, 0.15);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .carousel-progress-bar {
+            height: 100%;
+            background: var(--gold);
+            width: 0%;
+            transition: width linear;
+        }
+
+        /* Thumbnails */
+        .carousel-thumbs {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(36, 128, 214, 0.3) transparent;
+        }
+
+        .carousel-thumb {
+            min-width: 80px;
+            height: 56px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, opacity 0.2s;
+            opacity: 0.55;
+            flex-shrink: 0;
+        }
+
+        .carousel-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-thumb.active {
+            border-color: var(--gold);
+            opacity: 1;
+        }
+
+        .carousel-thumb:hover {
+            opacity: 0.85;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-slide-label {
+                font-size: 1rem;
+            }
+
+            .carousel-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-thumbs {
+                display: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <img src="irea-icon.png" alt="IREA icon" class="nav-logo-icon"/>
-    IREA <span>·</span>
-    <div class="nav-logo-badge">Design and Control</div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#galeria">Proyectos</a></li>
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
-  </ul>
-  <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menú">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile" id="mobileMenu">
-  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
-  <a href="#galeria" onclick="toggleMenu()">Proyectos</a>
-  <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
-  <a href="#contacto" onclick="toggleMenu()">Contacto</a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-accent-line"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Automatización &amp; Electrónica Industrial</div>
-    <h1 class="hero-title">
-      Soluciones que<br>
-      mantienen tu<br>
-      <em>planta en marcha</em>
-    </h1>
-    <p class="hero-subtitle">
-      Especialistas en reparación, mantenimiento y automatización de equipos electrónicos industriales multimarca. Confianza técnica en cada intervención.
-    </p>
-    <div class="hero-actions">
-      <a href="#contacto" class="btn-primary">Solicitar cotización</a>
-      <a href="#servicios" class="btn-outline">Ver servicios</a>
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <img src="irea-icon.png" alt="IREA icon" class="nav-logo-icon" />
+            IREA <span>·</span>
+            <div class="nav-logo-badge">Design and Control</div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Proyectos</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+        </ul>
+        <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+    <div class="nav-mobile" id="mobileMenu">
+        <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+        <a href="#galeria" onclick="toggleMenu()">Proyectos</a>
+        <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
+        <a href="#contacto" onclick="toggleMenu()">Contacto</a>
     </div>
-  </div>
-  <div class="hero-stats">
-    <div class="stat-item">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Multimarca</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">24/7</div>
-      <div class="stat-label">Soporte</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">+10</div>
-      <div class="stat-label">Años de exp.</div>
-    </div>
-  </div>
-</section>
 
-<!-- SERVICIOS -->
-<section id="servicios">
-  <div class="section-header">
-    <div class="section-label">Lo que hacemos</div>
-    <h2 class="section-title">Servicios especializados</h2>
-    <p class="section-desc">Ofrecemos soluciones técnicas completas para mantener tus equipos industriales operando con máxima eficiencia.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">⚡</div>
-      <div class="service-name">Variadores de frecuencia</div>
-      <p class="service-desc">Diagnóstico y reparación de drives de todas las marcas. Optimización del rendimiento y extensión de vida útil.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🔌</div>
-      <div class="service-name">Tarjetas de control</div>
-      <p class="service-desc">Reparación de tarjetas electrónicas industriales con diagnóstico preciso y componentes de alta calidad.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🖥️</div>
-      <div class="service-name">HMI y PLCs</div>
-      <p class="service-desc">Reparación de pantallas HMI y controladores lógicos programables. Backup y reconfiguración de parámetros.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">⚙️</div>
-      <div class="service-name">Motores eléctricos</div>
-      <p class="service-desc">Diagnóstico y mantenimiento de servomotores y motores C.A./C.D. Servicios de embobinado especializado.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🛠️</div>
-      <div class="service-name">Mantenimiento en planta</div>
-      <p class="service-desc">Planes preventivos y correctivos adaptados a tus necesidades. Minimizamos tiempos de paro no planificados.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">📋</div>
-      <div class="service-name">Asesoría en automatización</div>
-      <p class="service-desc">Acompañamiento técnico en proyectos de automatización. De la concepción a la implementación.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">📊</div>
-      <div class="service-name">Dashboards y reportes de producción</div>
-      <p class="service-desc">Desarrollo de dashboards web dinámicos para monitoreo en tiempo real de producción, eficiencia y rendimiento de maquinaria industrial. Visualiza KPIs clave y toma decisiones basadas en datos.</p>
-    </div>
-  </div>
-</section>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-accent-line"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Automatización &amp; Electrónica Industrial</div>
+            <h1 class="hero-title">
+                Soluciones que<br>
+                mantienen tu<br>
+                <em>planta en marcha</em>
+            </h1>
+            <p class="hero-subtitle">
+                Especialistas en reparación, mantenimiento y automatización de equipos electrónicos industriales
+                multimarca. Confianza técnica en cada intervención.
+            </p>
+            <div class="hero-actions">
+                <a href="#contacto" class="btn-primary">Solicitar cotización</a>
+                <a href="#servicios" class="btn-outline">Ver servicios</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Multimarca</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label">Soporte</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">+10</div>
+                <div class="stat-label">Años de exp.</div>
+            </div>
+        </div>
+    </section>
 
-<!-- NOSOTROS -->
-<section id="nosotros">
-  <div>
-    <div class="section-label">Quiénes somos</div>
-    <h2 class="section-title">Tu aliado estratégico en la industria</h2>
-    <p class="section-desc">
-      IREA nació con el propósito de brindar soluciones técnicas de alto nivel que optimicen el rendimiento operativo y garanticen la continuidad de tus procesos.
-    </p>
-    <ul class="about-list">
-      <li>Equipo técnico altamente especializado y certificado</li>
-      <li>Atención personalizada y diagnóstico transparente</li>
-      <li>Servicio multimarca con refacciones de calidad</li>
-      <li>Comprometidos con tiempos de entrega confiables</li>
-      <li>Relaciones de largo plazo, no solo transacciones</li>
-    </ul>
-    <div class="about-stat-mobile">
-      <div>
-        <div class="about-stat-mobile-num">+500</div>
-        <div class="about-stat-mobile-label">Equipos reparados</div>
-      </div>
-    </div>
-  </div>
-  <div class="about-visual">
-    <div class="about-box about-box-main">
-      <div class="about-box-tag">Desde el primer día</div>
-      <div class="about-box-text">Ingeniería industrial con propósito y precisión</div>
-    </div>
-    <div class="about-box about-detail-box">
-      <div class="about-detail-num">+500</div>
-      <div class="about-detail-label">Equipos reparados</div>
-    </div>
-  </div>
-</section>
+    <!-- SERVICIOS -->
+    <section id="servicios">
+        <div class="section-header">
+            <div class="section-label">Lo que hacemos</div>
+            <h2 class="section-title">Servicios especializados</h2>
+            <p class="section-desc">Ofrecemos soluciones técnicas completas para mantener tus equipos industriales
+                operando con máxima eficiencia.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <div class="service-name">Variadores de frecuencia</div>
+                <p class="service-desc">Diagnóstico y reparación de drives de todas las marcas. Optimización del
+                    rendimiento y extensión de vida útil.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔌</div>
+                <div class="service-name">Tarjetas de control</div>
+                <p class="service-desc">Reparación de tarjetas electrónicas industriales con diagnóstico preciso y
+                    componentes de alta calidad.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🖥️</div>
+                <div class="service-name">HMI y PLCs</div>
+                <p class="service-desc">Reparación de pantallas HMI y controladores lógicos programables. Backup y
+                    reconfiguración de parámetros.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <div class="service-name">Motores eléctricos</div>
+                <p class="service-desc">Diagnóstico y mantenimiento de servomotores y motores C.A./C.D. Servicios de
+                    embobinado especializado.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛠️</div>
+                <div class="service-name">Mantenimiento en planta</div>
+                <p class="service-desc">Planes preventivos y correctivos adaptados a tus necesidades. Minimizamos
+                    tiempos de paro no planificados.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <div class="service-name">Asesoría en automatización</div>
+                <p class="service-desc">Acompañamiento técnico en proyectos de automatización. De la concepción a la
+                    implementación.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <div class="service-name">Dashboards y reportes de producción</div>
+                <p class="service-desc">Desarrollo de dashboards web dinámicos para monitoreo en tiempo real de
+                    producción, eficiencia y rendimiento de maquinaria industrial. Visualiza KPIs clave y toma
+                    decisiones basadas en datos.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- CONTACTO -->
-<section id="contacto">
-  <div class="section-label" style="justify-content: center;">Hablemos</div>
-  <h2 class="section-title">¿Listo para trabajar juntos?</h2>
-  <p class="section-desc" style="margin: 0 auto;">
-    Coordinamos una visita técnica o llamada de diagnóstico sin costo. Cuéntanos tu situación y te asesoramos.
-  </p>
-  <div class="contact-cards">
-    <div class="contact-card">
-      <div class="contact-card-icon">📧</div>
-      <div class="contact-card-label">Correo electrónico</div>
-      <div class="contact-card-value">electronicaycontrolirea@gmail.com</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-card-icon">📞</div>
-      <div class="contact-card-label">Teléfono / WhatsApp</div>
-      <div class="contact-card-value">55 7273 2719</div>
-    </div>
-    <div class="contact-card">
-      <div class="contact-card-icon">📍</div>
-      <div class="contact-card-label">Cobertura</div>
-      <div class="contact-card-value">CDMX y área metropolitana</div>
-    </div>
-  </div>
-  <div style="margin-top: 3rem;">
-    <a href="mailto:electronicaycontrolirea@gmail.com" class="btn-primary">Enviar mensaje</a>
-  </div>
-</section>
+    <!-- NOSOTROS -->
+    <section id="nosotros">
+        <div>
+            <div class="section-label">Quiénes somos</div>
+            <h2 class="section-title">Tu aliado estratégico en la industria</h2>
+            <p class="section-desc">
+                IREA nació con el propósito de brindar soluciones técnicas de alto nivel que optimicen el rendimiento
+                operativo y garanticen la continuidad de tus procesos.
+            </p>
+            <ul class="about-list">
+                <li>Equipo técnico altamente especializado y certificado</li>
+                <li>Atención personalizada y diagnóstico transparente</li>
+                <li>Servicio multimarca con refacciones de calidad</li>
+                <li>Comprometidos con tiempos de entrega confiables</li>
+                <li>Relaciones de largo plazo, no solo transacciones</li>
+            </ul>
+            <div class="about-stat-mobile">
+                <div>
+                    <div class="about-stat-mobile-num">+500</div>
+                    <div class="about-stat-mobile-label">Equipos reparados</div>
+                </div>
+            </div>
+        </div>
+        <div class="about-visual">
+            <div class="about-box about-box-main">
+                <div class="about-box-tag">Desde el primer día</div>
+                <div class="about-box-text">Ingeniería industrial con propósito y precisión</div>
+            </div>
+            <div class="about-box about-detail-box">
+                <div class="about-detail-num">+500</div>
+                <div class="about-detail-label">Equipos reparados</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA / CARRUSEL -->
+    <section id="galeria">
+        <div class="section-header">
+            <div class="section-label">Nuestro trabajo</div>
+            <h2 class="section-title">Proyectos realizados</h2>
+            <p class="section-desc">Una muestra de los proyectos de automatización, instalación eléctrica y
+                mantenimiento industrial que hemos ejecutado.</p>
+        </div>
+
+        <div class="carousel-wrapper" id="carouselWrapper">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide"><img src="proyecto-01.jpg" alt="Variadores de frecuencia" loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Variadores de frecuencia
+                            Danfoss VLT</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-02.jpg" alt="Tablero eléctrico industrial"
+                        loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Tablero eléctrico
+                            industrial</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-03.jpg" alt="Instalación de drives" loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Instalación de drives
+                            multimarca</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-04.jpg" alt="Centro de control de motores"
+                        loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Centro de control de
+                            motores</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-05.jpg" alt="Instrumentación industrial"
+                        loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Instrumentación
+                            industrial</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-06.jpg" alt="Instalación eléctrica en planta"
+                        loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Instalación eléctrica en
+                            planta</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-07.jpg" alt="Tablero de distribución" loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Tablero de
+                            distribución</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-08.jpg" alt="Acometida de alta tensión" loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Acometida de alta
+                            tensión</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-09.jpg" alt="Trabajo en altura" loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Trabajo en altura con equipo
+                            de seguridad</span></div>
+                </div>
+                <div class="carousel-slide"><img src="proyecto-10.jpg" alt="Instalación en cubierta" loading="lazy" />
+                    <div class="carousel-slide-overlay"><span class="carousel-slide-label">Instalación de pararrayos en
+                            cubierta</span></div>
+                </div>
+            </div>
+            <button class="carousel-btn carousel-btn-prev" onclick="carouselPrev()">&#8249;</button>
+            <button class="carousel-btn carousel-btn-next" onclick="carouselNext()">&#8250;</button>
+        </div>
+
+        <div class="carousel-progress">
+            <div class="carousel-progress-bar" id="carouselBar"></div>
+        </div>
+
+        <div class="carousel-dots" id="carouselDots"></div>
+
+        <div class="carousel-thumbs" id="carouselThumbs">
+            <div class="carousel-thumb active" onclick="goToSlide(0)"><img src="proyecto-01.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(1)"><img src="proyecto-02.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(2)"><img src="proyecto-03.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(3)"><img src="proyecto-04.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(4)"><img src="proyecto-05.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(5)"><img src="proyecto-06.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(6)"><img src="proyecto-07.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(7)"><img src="proyecto-08.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(8)"><img src="proyecto-09.jpg" alt="" /></div>
+            <div class="carousel-thumb" onclick="goToSlide(9)"><img src="proyecto-10.jpg" alt="" /></div>
+        </div>
+    </section>
 
 
-<!-- GALERÍA / CARRUSEL -->
-<section id="galeria">
-  <div class="section-header">
-    <div class="section-label">Nuestro trabajo</div>
-    <h2 class="section-title">Proyectos realizados</h2>
-    <p class="section-desc">Una muestra de los proyectos de automatización, instalación eléctrica y mantenimiento industrial que hemos ejecutado.</p>
-  </div>
-
-  <div class="carousel-wrapper" id="carouselWrapper">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-slide"><img src="proyecto-01.jpg" alt="Variadores de frecuencia" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Variadores de frecuencia Danfoss VLT</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-02.jpg" alt="Tablero eléctrico industrial" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Tablero eléctrico industrial</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-03.jpg" alt="Instalación de drives" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Instalación de drives multimarca</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-04.jpg" alt="Centro de control de motores" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Centro de control de motores</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-05.jpg" alt="Instrumentación industrial" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Instrumentación industrial</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-06.jpg" alt="Instalación eléctrica en planta" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Instalación eléctrica en planta</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-07.jpg" alt="Tablero de distribución" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Tablero de distribución</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-08.jpg" alt="Acometida de alta tensión" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Acometida de alta tensión</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-09.jpg" alt="Trabajo en altura" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Trabajo en altura con equipo de seguridad</span></div></div>
-      <div class="carousel-slide"><img src="proyecto-10.jpg" alt="Instalación en cubierta" loading="lazy"/><div class="carousel-slide-overlay"><span class="carousel-slide-label">Instalación de pararrayos en cubierta</span></div></div>
-    </div>
-    <button class="carousel-btn carousel-btn-prev" onclick="carouselPrev()">&#8249;</button>
-    <button class="carousel-btn carousel-btn-next" onclick="carouselNext()">&#8250;</button>
-  </div>
-
-  <div class="carousel-progress"><div class="carousel-progress-bar" id="carouselBar"></div></div>
-
-  <div class="carousel-dots" id="carouselDots"></div>
-
-  <div class="carousel-thumbs" id="carouselThumbs">
-    <div class="carousel-thumb active" onclick="goToSlide(0)"><img src="proyecto-01.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(1)"><img src="proyecto-02.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(2)"><img src="proyecto-03.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(3)"><img src="proyecto-04.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(4)"><img src="proyecto-05.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(5)"><img src="proyecto-06.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(6)"><img src="proyecto-07.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(7)"><img src="proyecto-08.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(8)"><img src="proyecto-09.jpg" alt=""/></div>
-    <div class="carousel-thumb" onclick="goToSlide(9)"><img src="proyecto-10.jpg" alt=""/></div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-logo">IREA <span>Design and Control</span></div>
-  <div class="footer-copy">© 2025 IREA Design and Control · Todos los derechos reservados</div>
-</footer>
-
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById('mobileMenu');
-    menu.classList.toggle('open');
-  }
-  // Cerrar menú al hacer scroll
-  window.addEventListener('scroll', () => {
-    document.getElementById('mobileMenu').classList.remove('open');
-  });
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div class="section-label" style="justify-content: center;">Hablemos</div>
+        <h2 class="section-title">¿Listo para trabajar juntos?</h2>
+        <p class="section-desc" style="margin: 0 auto;">
+            Coordinamos una visita técnica o llamada de diagnóstico sin costo. Cuéntanos tu situación y te asesoramos.
+        </p>
+        <div class="contact-cards">
+            <div class="contact-card">
+                <div class="contact-card-icon">📧</div>
+                <div class="contact-card-label">Correo electrónico</div>
+                <div class="contact-card-value">electronicaycontrolirea@gmail.com</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-card-icon">📞</div>
+                <div class="contact-card-label">Teléfono / WhatsApp</div>
+                <div class="contact-card-value">55 7273 2719</div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-card-icon">📍</div>
+                <div class="contact-card-label">Cobertura</div>
+                <div class="contact-card-value">CDMX y área metropolitana</div>
+            </div>
+        </div>
+        <div style="margin-top: 3rem;">
+            <a href="mailto:electronicaycontrolirea@gmail.com" class="btn-primary">Enviar mensaje</a>
+        </div>
+    </section>
 
 
-  // ── CARRUSEL ──────────────────────────────────────
-  const TOTAL = 10;
-  const INTERVAL = 4000; // ms entre slides
-  let carouselIndex = 0;
-  let carouselTimer = null;
-  let progressTimer = null;
 
-  // Crear dots
-  const dotsContainer = document.getElementById('carouselDots');
-  for (let i = 0; i < TOTAL; i++) {
-    const d = document.createElement('button');
-    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goToSlide(i);
-    dotsContainer.appendChild(d);
-  }
+    <footer>
+        <div class="footer-logo">IREA <span>Design and Control</span></div>
+        <div class="footer-copy">© 2025 IREA Design and Control · Todos los derechos reservados</div>
+    </footer>
 
-  function updateCarousel(idx, restart) {
-    carouselIndex = (idx + TOTAL) % TOTAL;
-    document.getElementById('carouselTrack').style.transform = 'translateX(-' + (carouselIndex * 100) + '%)';
-    // dots
-    document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
-    // thumbs
-    document.querySelectorAll('.carousel-thumb').forEach((t, i) => t.classList.toggle('active', i === carouselIndex));
-    if (restart !== false) startAutoplay();
-  }
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('open');
+        }
+        // Cerrar menú al hacer scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('mobileMenu').classList.remove('open');
+        });
 
-  function carouselNext() { updateCarousel(carouselIndex + 1); }
-  function carouselPrev() { updateCarousel(carouselIndex - 1); }
-  function goToSlide(i) { updateCarousel(i); }
 
-  function startAutoplay() {
-    clearInterval(carouselTimer);
-    clearInterval(progressTimer);
-    // Barra de progreso
-    const bar = document.getElementById('carouselBar');
-    bar.style.transition = 'none';
-    bar.style.width = '0%';
-    setTimeout(() => {
-      bar.style.transition = 'width ' + INTERVAL + 'ms linear';
-      bar.style.width = '100%';
-    }, 30);
-    carouselTimer = setInterval(() => {
-      updateCarousel(carouselIndex + 1, false);
-      startAutoplay();
-    }, INTERVAL);
-  }
+        // ── CARRUSEL ──────────────────────────────────────
+        const TOTAL = 10;
+        const INTERVAL = 30000; // ms entre slides
+        let carouselIndex = 0;
+        let carouselTimer = null;
+        let progressTimer = null;
 
-  // Swipe touch
-  let touchStartX = 0;
-  const wrapper = document.getElementById('carouselWrapper');
-  wrapper.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-  wrapper.addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? carouselNext() : carouselPrev();
-  });
+        // Crear dots
+        const dotsContainer = document.getElementById('carouselDots');
+        for (let i = 0; i < TOTAL; i++) {
+            const d = document.createElement('button');
+            d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            d.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(d);
+        }
 
-  // Pausar al hover
-  wrapper.addEventListener('mouseenter', () => { clearInterval(carouselTimer); clearInterval(progressTimer); });
-  wrapper.addEventListener('mouseleave', () => startAutoplay());
+        function updateCarousel(idx, restart) {
+            carouselIndex = (idx + TOTAL) % TOTAL;
+            document.getElementById('carouselTrack').style.transform = 'translateX(-' + (carouselIndex * 100) + '%)';
+            // dots
+            document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === carouselIndex));
+            // thumbs
+            document.querySelectorAll('.carousel-thumb').forEach((t, i) => t.classList.toggle('active', i === carouselIndex));
+            if (restart !== false) startAutoplay();
+        }
 
-  startAutoplay();
+        function carouselNext() { updateCarousel(carouselIndex + 1); }
+        function carouselPrev() { updateCarousel(carouselIndex - 1); }
+        function goToSlide(i) { updateCarousel(i); }
 
-</script>
+        function startAutoplay() {
+            clearInterval(carouselTimer);
+            clearInterval(progressTimer);
+            // Barra de progreso
+            const bar = document.getElementById('carouselBar');
+            bar.style.transition = 'none';
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.transition = 'width ' + INTERVAL + 'ms linear';
+                bar.style.width = '100%';
+            }, 30);
+            carouselTimer = setInterval(() => {
+                updateCarousel(carouselIndex + 1, false);
+                startAutoplay();
+            }, INTERVAL);
+        }
+
+        // Swipe touch
+        let touchStartX = 0;
+        const wrapper = document.getElementById('carouselWrapper');
+        wrapper.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+        wrapper.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) diff > 0 ? carouselNext() : carouselPrev();
+        });
+
+        // Pausar al hover
+        wrapper.addEventListener('mouseenter', () => { clearInterval(carouselTimer); clearInterval(progressTimer); });
+        wrapper.addEventListener('mouseleave', () => startAutoplay());
+
+        startAutoplay();
+
+    </script>
 
 </body>
+
 </html>
