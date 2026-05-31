@@ -764,6 +764,153 @@
                 display: none;
             }
         }
+
+        /* GALERÍA */
+        #galeria {
+            background: var(--blue-dark);
+        }
+
+        .gallery-grid {
+            columns: 3;
+            column-gap: 1rem;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(36, 128, 214, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s ease;
+            object-fit: cover;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13, 27, 46, 0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.06em;
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(6, 15, 26, 0.96);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 88vh;
+            border-radius: 6px;
+            object-fit: contain;
+            border: 1px solid rgba(36, 128, 214, 0.2);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--white);
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .lightbox-close:hover {
+            color: var(--gold);
+        }
+
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--white);
+            cursor: pointer;
+            background: rgba(13, 27, 46, 0.6);
+            border: 1px solid rgba(36, 128, 214, 0.2);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            line-height: 1;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: var(--blue-accent);
+            color: #fff;
+        }
+
+        .lightbox-prev {
+            left: 1.5rem;
+        }
+
+        .lightbox-next {
+            right: 1.5rem;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            color: var(--gray);
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                columns: 1;
+            }
+        }
     </style>
 </head>
 
@@ -778,6 +925,7 @@
         </a>
         <ul class="nav-links">
             <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#galeria">Proyectos</a></li>
             <li><a href="#nosotros">Nosotros</a></li>
             <li><a href="#contacto" class="nav-cta">Contacto</a></li>
         </ul>
@@ -787,6 +935,7 @@
     </nav>
     <div class="nav-mobile" id="mobileMenu">
         <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+        <a href="#galeria" onclick="toggleMenu()">Proyectos</a>
         <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
         <a href="#contacto" onclick="toggleMenu()">Contacto</a>
     </div>
@@ -946,6 +1095,71 @@
         </div>
     </section>
 
+
+    <!-- GALERÍA -->
+    <section id="galeria">
+        <div class="section-header">
+            <div class="section-label">Nuestro trabajo</div>
+            <h2 class="section-title">Proyectos realizados</h2>
+            <p class="section-desc">Una muestra de los proyectos de automatización, instalación eléctrica y
+                mantenimiento industrial que hemos ejecutado.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox(0)">
+                <img src="proyecto-01.jpg" alt="Variadores de frecuencia Danfoss VLT" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Variadores de frecuencia</span></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(1)">
+                <img src="proyecto-02.jpg" alt="Tablero eléctrico industrial" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Tablero eléctrico industrial</span>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(2)">
+                <img src="proyecto-03.jpg" alt="Instalación de drives multimarca" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Instalación de drives</span></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(3)">
+                <img src="proyecto-04.jpg" alt="Centro de control de motores" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Centro de control de motores</span>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(4)">
+                <img src="proyecto-05.jpg" alt="Instrumentación industrial" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Instrumentación industrial</span>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(5)">
+                <img src="proyecto-06.jpg" alt="Instalación eléctrica en planta" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Instalación en planta</span></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(6)">
+                <img src="proyecto-07.jpg" alt="Tablero de distribución" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Tablero de distribución</span></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(7)">
+                <img src="proyecto-08.jpg" alt="Acometida de alta tensión" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Acometida de alta tensión</span>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(8)">
+                <img src="proyecto-09.jpg" alt="Trabajo en altura con equipo de seguridad" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Trabajo en altura</span></div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(9)">
+                <img src="proyecto-10.jpg" alt="Instalación de pararrayos en cubierta" loading="lazy" />
+                <div class="gallery-item-overlay"><span class="gallery-item-label">Instalación en cubierta</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <button class="lightbox-prev" onclick="prevImage(event)">‹</button>
+        <img id="lightbox-img" src="" alt="" />
+        <button class="lightbox-next" onclick="nextImage(event)">›</button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
     <footer>
         <div class="footer-logo">IREA <span>Design and Control</span></div>
         <div class="footer-copy">© 2025 IREA Design and Control · Todos los derechos reservados</div>
@@ -960,6 +1174,48 @@
         window.addEventListener('scroll', () => {
             document.getElementById('mobileMenu').classList.remove('open');
         });
+
+        // Lightbox
+        const images = [
+            'proyecto-01.jpg', 'proyecto-02.jpg', 'proyecto-03.jpg', 'proyecto-04.jpg',
+            'proyecto-05.jpg', 'proyecto-06.jpg', 'proyecto-07.jpg', 'proyecto-08.jpg',
+            'proyecto-09.jpg', 'proyecto-10.jpg'
+        ];
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            document.getElementById('lightbox-img').src = images[currentIndex];
+            document.getElementById('lightbox-counter').textContent = (currentIndex + 1) + ' / ' + images.length;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function closeLightboxOutside(e) {
+            if (e.target === document.getElementById('lightbox')) closeLightbox();
+        }
+        function nextImage(e) {
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('lightbox-img').src = images[currentIndex];
+            document.getElementById('lightbox-counter').textContent = (currentIndex + 1) + ' / ' + images.length;
+        }
+        function prevImage(e) {
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            document.getElementById('lightbox-img').src = images[currentIndex];
+            document.getElementById('lightbox-counter').textContent = (currentIndex + 1) + ' / ' + images.length;
+        }
+        document.addEventListener('keydown', function (e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'ArrowRight') nextImage(e);
+            if (e.key === 'ArrowLeft') prevImage(e);
+            if (e.key === 'Escape') closeLightbox();
+        });
+
     </script>
 
 </body>
