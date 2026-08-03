@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "IREA | Ingeniería industrial de alto nivel",
   description:
-    "Automatización industrial, reparación electrónica, HVAC, cuartos limpios y mantenimiento estratégico para procesos que no pueden detenerse.",
+    "Automatización industrial, SCADA y dashboards en tiempo real, reparación electrónica, HVAC y mantenimiento estratégico.",
   icons: {
     icon: "/irea-icon.png",
     shortcut: "/irea-icon.png",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "IREA | Ingeniería industrial de alto nivel",
     description:
-      "Automatización, reparación electrónica, HVAC y mantenimiento para procesos que no pueden detenerse.",
+      "Automatización, SCADA y portales industriales en tiempo real para procesos que no pueden detenerse.",
     type: "website",
     locale: "es_MX",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "IREA - Tu industria en movimiento" }],

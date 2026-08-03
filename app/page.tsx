@@ -35,6 +35,14 @@ const services = [
       "Planes preventivos y correctivos, diagnóstico eléctrico y mecánico, atención en planta y acompañamiento técnico para reducir tiempos muertos y mejorar el rendimiento operativo.",
     tags: ["Preventivo", "Correctivo", "Diagnóstico", "En planta"],
   },
+  {
+    number: "05",
+    title: "SCADA y portales en tiempo real",
+    short: "Los datos de tus máquinas, convertidos en decisiones oportunas.",
+    description:
+      "Desarrollamos sistemas SCADA, portales y dashboards interactivos a la medida. Nos conectamos con los PLC de las máquinas, seleccionamos los tags críticos y transformamos sus datos en visualizaciones en tiempo real para monitorear estados, detectar desviaciones y seguir indicadores clave a nivel operativo y directivo.",
+    tags: ["SCADA", "Tags de PLC", "Tiempo real", "KPI + OEE"],
+  },
 ];
 
 const process = [
@@ -106,7 +114,8 @@ export default function Home() {
           <span>Automatización</span><i />
           <span>Electrónica</span><i />
           <span>HVAC</span><i />
-          <span>Mantenimiento</span>
+          <span>Mantenimiento</span><i />
+          <span>Datos en tiempo real</span>
         </div>
         <div className="scroll-cue"><span>Scroll</span><i /></div>
       </section>
